@@ -174,4 +174,4 @@ cython_debug/
 .pypirc
 
 #Reaserch folder, with docs and other resources
-Reaserch/
+resources/
