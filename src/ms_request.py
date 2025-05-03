@@ -1,9 +1,4 @@
 import requests
-#This script should define functons to retrieve all needed data from the 
-#spreadsheet.
-
-#Those functions should recieve the access_token, endpoint and headers
-#Here, validation of the output of those functions should also ne defined
 
 def ms_excel_request(item_id, worksheet_id, access_token, address="'G2:AK1048576'"):
     graph_url = "https://graph.microsoft.com/v1.0/"
