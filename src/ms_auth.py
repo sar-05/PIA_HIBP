@@ -1,7 +1,5 @@
-import msal
 from msal import PublicClientApplication
 import webbrowser
-from msal import authority
 
 def ms_graph_token(app_id, authority_url, az_scopes):
     #Creating client object
