@@ -18,7 +18,6 @@ for index in df.index:
         indices_to_drop.append(index)
     sleep(6)
 
-df.drop(indices_to_drop)
+df.drop(indices_to_drop, axis=0, inplace=True)
 
 print(df['breached'])
-# df['breached'] = df['main_email'].apply(hibp)
