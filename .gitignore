@@ -6,6 +6,9 @@ __pycache__/
 #lock files
 .~lock*
 
+#db files (xlsx)
+*.xlsx
+
 # C extensions
 *.so
 
