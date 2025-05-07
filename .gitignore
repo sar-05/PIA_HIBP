@@ -3,6 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#lock files
+.~lock*
+
+#db files (xlsx)
+*.xlsx
+
 # C extensions
 *.so
 
@@ -175,3 +181,4 @@ cython_debug/
 
 #Reaserch folder, with docs and other resources
 resources/
+
