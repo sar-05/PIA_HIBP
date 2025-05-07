@@ -1,6 +1,6 @@
 import requests
 import os
-from config import RAW_DIR
+from pia_hibp.config import RAW_DIR
 
 def ms_excel_request(item_id, access_token):
     graph_url = "https://graph.microsoft.com/v1.0/"
@@ -10,3 +10,5 @@ def ms_excel_request(item_id, access_token):
     response = requests.get(endpoint, headers=headers)
     with open(os.path.join(save_location, "datos_encuesta.xlsx"), 'wb') as _f:
         _f.write(response.content)
+
+print(RAW_DIR)
