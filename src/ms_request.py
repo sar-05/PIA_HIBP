@@ -1,11 +1,13 @@
 import requests
+import os
 
-def ms_excel_request(item_id, worksheet_id, access_token, address="'G2:AK1048576'"):
+def ms_excel_request(item_id, access_token):
     graph_url = "https://graph.microsoft.com/v1.0/"
-    service = f"me/drive/items/{item_id}/workbook/worksheets/{worksheet_id}/"
-    excel_range = f"range(address={address})/usedRange?$select=text"
+    endpoint = f"{graph_url}me/drive/items/{item_id}/content"
     headers = {'Authorization': f'Bearer{access_token}'}
-    endpoint = f"{graph_url}{service}{excel_range}"
+    save_location = os.getcwd()
     response = requests.get(endpoint, headers=headers)
-    data = response.json()
-    return data['text']
+    with open(os.path.join(save_location, "datos_encuesta.xlsx"), 'wb') as _f:
+        _f.write(response.content)
+
+print(os.path.dirname(os.getcwd()))
