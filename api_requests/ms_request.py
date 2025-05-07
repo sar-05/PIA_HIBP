@@ -1,6 +1,6 @@
 import requests
 import os
-from pia_hibp.config import RAW_DIR
+from config import RAW_DIR
 
 def ms_excel_request(item_id, access_token):
     graph_url = "https://graph.microsoft.com/v1.0/"
