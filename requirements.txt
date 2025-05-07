@@ -5,9 +5,16 @@ cryptography==44.0.3
 dotenv==0.9.9
 idna==3.10
 msal==1.32.3
--e git+https://github.com/sar-05/PIA_HIBP/@4085b8b699af7e0fb9da7419db3607bd5117afa6#egg=pia_hibp
+numpy==2.2.5
+pandas==2.2.3
+-e git+https://github.com/sar-05/PIA_HIBP/@bf05beb25f0e02f8409f87bb3fe88249456eb857#egg=pia_hibp
 pycparser==2.22
 PyJWT==2.10.1
+python-dateutil==2.9.0.post0
 python-dotenv==1.1.0
+pytz==2025.2
 requests==2.32.3
+setuptools==80.3.1
+six==1.17.0
+tzdata==2025.2
 urllib3==2.4.0

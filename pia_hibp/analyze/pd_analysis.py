@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 import pandas as pd
 from time import sleep
-from hibp_request import hibp_breaches
+from pia_hibp.config import RAW_DIR
+from pia_hibp.api_requests.hibp_request import hibp_breaches
 
 #Creation of data frame based on the Forms Excel Spreadsheet
-df = pd.read_excel("Encuesta PIA.xlsx", usecols='G:R')
+df = pd.read_excel(RAW_DIR / "datos_encuesta.xlsx", usecols='G:R')
 df.columns = ['age', 'gender', 'studies', 'num_acc', 'services', 
               'diff_emails', 'diff_pass', '2fa', 
               'num_emails', 'main_email', 'age_email', 'usecase_email']

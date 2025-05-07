@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import os
 from dotenv import load_dotenv
-from api_requests.ms_request import ms_excel_request
-from api_requests.ms_auth import ms_graph_token
+from pia_hibp.api_requests.ms_request import ms_excel_request
+from pia_hibp.api_requests.ms_auth import ms_graph_token
 
 load_dotenv('.env')
 app_id = os.getenv('APPLICATION_ID')
