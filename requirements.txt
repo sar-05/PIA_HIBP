@@ -1,1 +1,13 @@
-#All required packages with version need for the scripts to run
+certifi==2025.4.26
+cffi==1.17.1
+charset-normalizer==3.4.2
+cryptography==44.0.3
+dotenv==0.9.9
+idna==3.10
+msal==1.32.3
+-e git+https://github.com/sar-05/PIA_HIBP/@4085b8b699af7e0fb9da7419db3607bd5117afa6#egg=pia_hibp
+pycparser==2.22
+PyJWT==2.10.1
+python-dotenv==1.1.0
+requests==2.32.3
+urllib3==2.4.0
