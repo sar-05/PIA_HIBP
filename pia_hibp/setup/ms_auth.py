@@ -1,11 +1,11 @@
 from msal import PublicClientApplication
 import webbrowser
 
-def ms_graph_token(app_id, tenant_id, az_scopes):
+def ms_graph_token(app_id, az_scopes=['Files.Read']):
     #Creating client object
     client_obj = PublicClientApplication(
         app_id,
-        authority = f'https://login.microsoftonline.com/{tenant_id}'
+        authority = f'https://login.microsoftonline.com/common'
     )
     #Geting access token through device flow authentication
     flow = client_obj.initiate_device_flow(scopes=az_scopes)
