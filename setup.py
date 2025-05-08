@@ -9,5 +9,6 @@ setup(
         "requests",
         "python-dotenv",
         "msal",
+        "pandas",
     ],
 )
