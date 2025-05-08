@@ -2,10 +2,6 @@ import requests
 import os
 from pia_hibp.config import EXCEL_PATH
 
-import requests
-import os
-from pia_hibp.config import EXCEL_PATH
-
 def ms_excel_request(item_id, token):
     endpoint = f"https://graph.microsoft.com/v1.0/me/drive/items/{item_id}/content"
     headers = {"Authorization": f"Bearer {token}"}
