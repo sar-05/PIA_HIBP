@@ -1,9 +1,10 @@
 #!/usr/bin/env python
+from pandas._config import display
 from pia_hibp.setup.envs import *
 from pia_hibp.config import *
 from pia_hibp.setup.ms_auth import ms_graph_token
 from pia_hibp.api_requests.ms_request import ms_excel_request
-from pia_hibp.analyze.pd_analysis import df_create, add_hibp_cols
+from pia_hibp.analyze.pd_analysis import *
 import pandas as pd
 #Creation of authorization token
 # token = ms_graph_token(app_id)
@@ -21,3 +22,8 @@ add_hibp_cols(df, hibp_key)
 
 #Test print
 print(df)
+
+#Impresion analisis
+print(f"Porcentaje de brechas: {breach_percentage(df)}%")
+print(f"Promedio de brechas: {breach_average(df)}")
+print(f"Mediana de brechas: {breach_median(df)}")
