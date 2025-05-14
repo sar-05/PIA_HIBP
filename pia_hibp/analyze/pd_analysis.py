@@ -1,20 +1,16 @@
 #!/usr/bin/env python
 import pandas as pd
 from time import sleep
-from pia_hibp.config import EXCEL_PATH, EXCEL_COLS
-from pia_hibp.api_requests.hibp_request import hibp_breaches
+from pia_hibp.api_requests.hibp_request import hibp_requests 
 
 #Creates data frame based on the Forms Excel Spreadsheet
-def df_create(excel_path=EXCEL_PATH):
+def df_create(excel_path, col_range, col_names):
     try:
-        df = pd.read_excel(excel_path, usecols=EXCEL_COLS)
+        df = pd.read_excel(excel_path, usecols=col_range)
     except FileNotFoundError:
         print(f"No existe {excel_path}")
-        raise FileNotFoundError
     else:
-        df.columns = ['age', 'gender', 'studies', 'num_acc', 'services', 
-                      'diff_emails', 'diff_pass', '2fa', 'num_emails',
-                      'main_email', 'age_email', 'usecase_email']
+        df.columns = col_names  
         return df
 
 #Creates HIBP data colums
@@ -26,11 +22,12 @@ def add_hibp_cols(df, hibp_key):
         for index in df.index:
             email = df.loc[index, 'main_email'] 
             try:
-                response = hibp_breaches(email, hibp_key)
-                df.loc[index, 'breached'] = response[0]
-                df.loc[index, 'brech_num'] = response[1]
+                response = hibp_requests(hibp_key, email=email)
             except:
                 indices_to_drop.append(index)
+            else:
+                df.loc[index, 'breached'] = response[0]
+                df.loc[index, 'brech_num'] = response[1]
             sleep(6)
         if indices_to_drop is not []:
             df.drop(indices_to_drop, axis=0, inplace=True)
