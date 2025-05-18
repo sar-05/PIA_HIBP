@@ -1,32 +1,28 @@
 #!/usr/bin/env python
 
-from os import write
-import pandas as pd
-import matplotlib.pyplot as plt
-
-from pia_hibp.analyze.category_analysis import analyze_by_answer
-from pia_hibp.setup.envs import *
-from pia_hibp.config import *
-from pia_hibp.setup.ms_auth import ms_graph_token
-from pia_hibp.api_requests.ms_request import ms_excel_request
-from pia_hibp.analyze.pd_analysis import *
-from pia_hibp.visualize.graphs import create_pie_graph
+import pia_hibp.config as config
+from pia_hibp.setup import envs, ms_auth
+from pia_hibp.api_requests import ms_requests
+from pia_hibp.analyze import df_setup, breach_rate
+from pia_hibp.visualize import graphs
 
 #Creation of authorization token
-token = ms_graph_token(app_id)
+token = ms_auth.ms_graph_token(envs.app_id)
 
 #Use of token to GET request spreadsheet from cloud to RAW dir
-ms_excel_request(item_id, token)
+ms_requests.excel_request(config.SURVEY_FILE, envs.item_id, token)
 
 # Creation of main dataframe
-df = df_create(EXCEL_PATH, EXCEL_MAIN_COLS_RANGE, EXCEL_MAIN_COLS_NAME)
+df = df_setup.df_create(config.SURVEY_FILE,config.COL_RANGE,config.SURVEY_COLS)
 
 #Creation of hibp_key cells
-add_hibp_cols(df, hibp_key)
+print("Generando columnas en base a HIBP")
+df_setup.add_hibp_cols(df, envs.hibp_key)
 
-df.to_excel(PROCESSED_DIR / "analysis.xlsx", index=False)
+print("Creando Dataframes de Tasas de Compromisos")
+rates_dfs = []
+for col in config.DEMO_COLS:
+    rates_dfs.append(breach_rate.by_group(df, col))
 
-for col in ANALYSIS_COLS:
-    fig = create_pie_graph(col, analyze_by_answer(df, col))
-    fig.savefig(f"{PROCESSED_DIR}/{col}.png", dpi=300)
-    plt.close(fig)
+for i in range(len(rates_dfs)):
+    graphs.rates_graphs(config.PROC_DIR, config.COLS_NAMES[i], rates_dfs[i])
