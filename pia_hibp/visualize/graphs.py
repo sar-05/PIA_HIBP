@@ -1,3 +1,4 @@
+from matplotlib.cm import get_cmap
 import matplotlib.pyplot as plt
 
 def create_pie_graph(title, data_dict):
@@ -9,11 +10,18 @@ def create_pie_graph(title, data_dict):
     return fig
 
 def rates_graphs(path, name, rates_df):
-    rates_df = rates_df.sort_values('Breach Rate (%)', ascending=False)
     labels = rates_df['Group']
     heights = rates_df['Breach Rate (%)']
+    plt.style.use('seaborn-v0_8-whitegrid')
+    colormap = get_cmap('YlOrRd')
+    colors = colormap(heights / 100) 
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.bar(labels, heights)
-    ax.set_title(f"Tasa de Compromiso por {name}")
+    ax.bar(labels, heights,
+    edgecolor='black', linewidth=1, color=colors)
+    ax.set_ylabel('Tasa de Compromiso (%)',
+    fontsize=12, fontweight='bold')
+    ax.set_title(f"Tasa de Compromiso por {name}",
+    fontsize=16, fontweight='bold', pad=20)
+    plt.tight_layout()
     plt.savefig(f"{path}/{name}", dpi=300)
     plt.close(fig)
