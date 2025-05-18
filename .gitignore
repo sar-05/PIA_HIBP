@@ -9,6 +9,9 @@ __pycache__/
 #db files (xlsx)
 *.xlsx
 
+#graph files (png)
+*.png
+
 # C extensions
 *.so
 
