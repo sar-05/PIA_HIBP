@@ -10,7 +10,7 @@ def breach_percentage(df):
     return percentage
 
 def breach_average(df):
-    if 'breached' not in df.columns:
+    if 'breach_num' not in df.columns:
         raise ValueError("El dataframe no contiene la columna 'breach_num'")
     return df['breach_num'].mean()
 

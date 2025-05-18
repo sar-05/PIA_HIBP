@@ -29,7 +29,7 @@ def add_hibp_cols(df, hibp_key):
                 df.loc[index, 'breached'] = response[0]
                 df.loc[index, 'breach_num'] = response[1]
             sleep(6)
-        if indices_to_drop is not []:
+        if len(indices_to_drop) > 0:
             df.drop(indices_to_drop, axis=0, inplace=True)
     else:
         print("El excel no contiene columna de correos electrónicos")
@@ -45,13 +45,3 @@ def breach_percentage(df):
     else:
         percentage = 0
     return percentage
-
-def breach_average(df):
-    if 'breached' not in df.columns:
-        raise ValueError("El dataframe no contiene la columna 'breach_num'")
-    return df['breach_num'].mean()
-
-def breach_median(df):
-    if 'breach_num' not in df.columns:
-        raise ValueError("El dataframe no contiene la columna 'breach_num'")
-    return df['breach_num'].median()
