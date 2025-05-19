@@ -1,6 +1,8 @@
 from collections import Counter
 import re
 
+from pia_hibp import config
+
 def only_year(date):
     pattern = re.compile(r'^(\d{4})-\d{2}-\d{2}$')
     mo = pattern.match(date)
@@ -17,7 +19,7 @@ def breach_db(data):
         classes_list.extend(element.get("DataClasses", []))
     date_dict = Counter(date_list)
     sorted_years = sorted(date_dict.items())
-    with open("hibp_cleaned.txt", "w") as file:
+    with open(config.HIBP_TXT, "w") as file:
         file.write("Breaches by name and number of accounts:\n")
         file.write(str(count_dict) + '\n')
         file.write("Breaches by date:\n")

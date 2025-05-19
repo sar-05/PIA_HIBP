@@ -12,6 +12,9 @@ __pycache__/
 #graph files (png)
 *.png
 
+#project txt files
+pia_hibp/data/raw/hibp_cleaned.txt
+
 # C extensions
 *.so
 

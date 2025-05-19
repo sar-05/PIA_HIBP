@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
+import pandas as pd
+
 import pia_hibp.config as config
 from pia_hibp.setup import envs, ms_auth
-from pia_hibp.api_requests import ms_requests
-from pia_hibp.analyze import df_setup, breach_rate
+from pia_hibp.api_requests import ms_requests, hibp_request
+from pia_hibp.analyze import df_setup, breach_rate, hibp_db, hibp_analysis
 from pia_hibp.visualize import graphs
 
 #Creation of authorization token
@@ -19,10 +21,17 @@ df = df_setup.df_create(config.SURVEY_FILE,config.COL_RANGE,config.SURVEY_COLS)
 print("Generando columnas en base a HIBP")
 df_setup.add_hibp_cols(df, envs.hibp_key)
 
-print("Creando Dataframes de Tasas de Compromisos")
 rates_dfs = []
 for col in config.DEMO_COLS:
     rates_dfs.append(breach_rate.by_group(df, col))
 
-for i in range(len(rates_dfs)):
-    graphs.rates_graphs(config.PROC_DIR, config.COLS_NAMES[i], rates_dfs[i])
+with pd.ExcelWriter(config.OUTPUT_EXCEL) as excel:
+    for i in range(len(rates_dfs)):
+        graphs.rates_graphs(config.SURVEY_DIR, config.COLS_NAMES[i], rates_dfs[i])
+        rates_dfs[i].to_excel(excel, sheet_name=config.COLS_NAMES[i], index=False)
+
+hibp_data = hibp_request.hibp_requests(envs.hibp_key)
+
+hibp_db.breach_db(hibp_data)
+
+hibp_analysis.main_hibp_analyisis()
